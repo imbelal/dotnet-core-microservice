@@ -42,3 +42,15 @@ Now let's understand how micorservice help us to overcome the issues we face in 
 ### What we'll build?
 Well, to understand microservice and onion architecture we will build a simple application. There is two part Product and Order microservice. And we'll have a central gateway web api to make smoother communication with client applicatoin. We'll use [Ocelot](https://www.nuget.org/packages/Ocelot/) for router redirection in central gateway. And [CQRS](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) with [MediatR](https://www.nuget.org/packages/MediatR/) in every microservice. To communicate from one microservice to another microservice we will use [RabbitMQ](https://www.rabbitmq.com/) message broker.
 
+### Our project architecture 
+
+<p float="left">
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture1.png" height="200" width="230" alt="monolith-architecutre.png" />
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture2.png" height="200" width="230" alt="monolith-architecutre.png" />
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture3.png" height="200" width="230" alt="monolith-architecutre.png" />
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture4.png" height="200" width="230" alt="monolith-architecutre.png" />
+</p>
+<br>
+As we can see, in the root folder there is a folder "Microservices" which contain two microservice "Order" and "Product". And in the root folder there is a central gateway web api project which is responsible for route direction betweel client and microservices. Each microservice has three folder "Core", "Infrastructure" and "Presentation" according to onion architecture. Inside core there is two project, "Domain" which is a standard C# class library project and "Application" which is a standard .NET Core  class library project. Domain project contains all the entities which is the core of the application. Application project contain interfaces and CQRS commands which will be used by Infrastructure and Presentation layer. Inside Infrastructure folder there is a project "Persistence" which is a database for the specific microservice. We can use same database with multiple microservice also. And finally inside Presentation folder there is a Web API project to communicate with client. 
+
+

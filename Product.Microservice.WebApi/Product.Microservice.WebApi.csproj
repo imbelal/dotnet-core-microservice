@@ -20,8 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Product.Application.csproj" />
-    <ProjectReference Include="..\Persistence\Product.Persistence.csproj" />
+    <ProjectReference Include="..\Order.Persistence\Order.Persistence.csproj" />
+    <ProjectReference Include="..\Product.Application\Product.Application.csproj" />
+    <ProjectReference Include="..\Product.Persistence\Product.Persistence.csproj" />
     <ProjectReference Include="..\Shared.Model\Shared.Model.csproj" />
   </ItemGroup>
 

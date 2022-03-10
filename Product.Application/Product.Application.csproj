@@ -11,11 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Product.Domain.csproj" />
+    <Folder Include="DTOs\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
+    <ProjectReference Include="..\Order.Domain\Order.Domain.csproj" />
+    <ProjectReference Include="..\Product.Domain\Product.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -24,16 +24,11 @@ Well, well, well
 As like before lets compare microservice with monolith architecture 
 
 
-<table>
-  <tr>
-    <th width="380">Monolith</th>
-    <th width="600">Microservice</th>
-  </tr>
-</table>
-<p float="left">
+
+<p>Monolith Architecture</p>
 <img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/monolith-architecutre.png" height="330" alt="monolith-architecutre.png" />
+<p>Microservice Architecture</p>
 <img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/microservice-architecture.png" height="330" width="600" alt="microservice-architecture.png" />
-</p>
 <br>
 In a simple language, in monolith architecture, layeriing means creating sub-folders in a single solution. It means whatever layering we applied, at the end we are in a single a solution. Its easy to deploy and easy to maintain. That's why it is so popular. But there are some great issues also, which can make more pain in the long run. For example a single change in a monolith application will end up deploying whole application which means the whole application will go through the testing phases again. It's hideous  situation for a devops team. Aslo maintaing monolith lage domain application is painful for developers. 
 <br>
@@ -73,7 +68,7 @@ First we are creating an order with two item and publishing a message to OrderQu
 Then in the consumer class in product microservice we've received what we had sent from Order microservice 
 <img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/debugging-snap-2.png" height="300" alt="debugging-snap-2.png" />
 
-Well, according to DDD and real world applications, this example may not be a good one but in this repository i mainly focused on the architecture. 
+Well, according to DDD and real world applications, this example may not be a good one but in this repository i mainly focused on the architecture and internal communication between microservices. 
 
 ### References 
  - [https://www.dddcommunity.org/resources/ddd_terms/](https://www.dddcommunity.org/resources/ddd_terms/)

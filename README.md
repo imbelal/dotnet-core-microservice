@@ -45,10 +45,10 @@ Well, to understand microservice and onion architecture we will build a simple a
 ### Our project architecture 
 
 <p float="left">
-<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture1.png" height="200" width="230" alt="monolith-architecutre.png" />
-<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture2.png" height="200" width="230" alt="monolith-architecutre.png" />
-<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture3.png" height="200" width="230" alt="monolith-architecutre.png" />
-<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture4.png" height="200" width="230" alt="monolith-architecutre.png" />
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture1.png" height="200" width="230" alt="project-architecture1.png" />
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture2.png" height="200" width="230" alt="project-architecture2.png" />
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture3.png" height="200" width="230" alt="project-architecture3.png" />
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/project-architecture4.png" height="200" width="230" alt="project-architecture4.png" />
 </p>
 <br>
 As we can see, in the root folder there is a folder "Microservices" which contain two microservice "Order" and "Product". And in the root folder there is a central gateway web api project which is responsible for route direction betweel client and microservices. Each microservice has three folder "Core", "Infrastructure" and "Presentation" according to onion architecture. Inside core there is two project, "Domain" which is a standard C# class library project and "Application" which is a standard .NET Core  class library project. Domain project contains all the entities which is the core of the application. Application project contain interfaces and CQRS commands which will be used by Infrastructure and Presentation layer. Inside Infrastructure folder there is a project "Persistence" which is a database for the specific microservice. We can use same database with multiple microservice also. And finally inside Presentation folder there is a Web API project to communicate with client. 
@@ -56,5 +56,10 @@ As we can see, in the root folder there is a folder "Microservices" which contai
 ### Internal communication between microservices 
 To communicate between Order and Product mircorservice we've used [RabbitMQ](https://www.rabbitmq.com/) message broker. We have used [MassTransit](https://masstransit-project.com/). MassTransit is a .NET Friendly abstraction over message-broker technologies like RabbitMQ. It makes it easier to work with RabbitMQ by providing a lots of dev-friendly configurations. It essentially helps developers to route messages over Messaging Service Buses, with native support for RabbitMQ.
 <br>
-To communicate through a message broker we need a message publisher which is responsible for publishing messages and cosumer to consume those messages. In our Order Microservice Web API project, inside OrderController there is a method to create an order 
+To communicate through a message broker we need a message publisher which is responsible for publishing messages and cosumer to consume those messages. In our Order Microservice Web API project, inside OrderController there is a method to create an order from where we have published a message to OrderQueue with the information of latest created order. See below snapshot
 
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/Code-snap-1.png" height="300" alt="Code-snap-1.png" />
+
+<br>
+After publish message we need to consume the message from another microservice. We have a folder "Consumer" inside Product Web API projct under Persentation layer of prodcut microservic. There is a class "OrderConsumer.cs". Inside the class there is a method Consume where we will found the information we have passed from Order microservice through OrderQueue. see below snapshot 
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/Code-snap-2.png" height="300" alt="Code-snap-2.png" />

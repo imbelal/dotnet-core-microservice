@@ -63,3 +63,20 @@ To communicate through a message broker we need a message publisher which is res
 <br>
 After publish message we need to consume the message from another microservice. We have a folder "Consumer" inside Product Web API projct under Persentation layer of prodcut microservic. There is a class "OrderConsumer.cs". Inside the class there is a method Consume where we will found the information we have passed from Order microservice through OrderQueue. see below snapshot 
 <img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/Code-snap-2.png" height="300" alt="Code-snap-2.png" />
+<br>
+See below debugging snapshots for better understanding...
+</br>
+</br>
+First we creating an order with two item and publishing a message to OrderQueue
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/debugging-snap-1.png" height="300" alt="debugging-snap-1.png" />
+<br>
+Then in the consumer class in product microservice we've received what we had sent from Order microservice 
+<img src="https://github.com/belal55/dotnet-core-microservice/blob/master/Docs/debugging-snap-2.png" height="300" alt="debugging-snap-2.png" />
+
+### References 
+ - [https://www.dddcommunity.org/resources/ddd_terms/](https://www.dddcommunity.org/resources/ddd_terms/)
+ - [https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
+ - [https://microservices.io/patterns/data/cqrs.html](https://microservices.io/patterns/data/cqrs.html)
+ - [https://enlabsoftware.com/development/domain-driven-design-in-asp-net-core-applications.html](https://enlabsoftware.com/development/domain-driven-design-in-asp-net-core-applications.html)
+ -  [https://deviq.com/domain-driven-design/ddd-overview](https://deviq.com/domain-driven-design/ddd-overview)
+ -  [https://codewithmukesh.com/blog/onion-architecture-in-aspnet-core/](https://codewithmukesh.com/blog/onion-architecture-in-aspnet-core/)

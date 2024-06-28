@@ -1,19 +1,13 @@
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Order.Application;
 using Order.Persistence;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Order.Microservice.WebApi
 {
@@ -31,17 +25,15 @@ namespace Order.Microservice.WebApi
         {
             services.AddMassTransit(x =>
             {
-                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
+                x.UsingRabbitMq((ctx, cfg) =>
                 {
-                    config.UseHealthCheck(provider);
-                    config.Host(new Uri("rabbitmq://localhost"), h =>
+                    cfg.Host(new Uri("rabbitmq://localhost"), "/", c =>
                     {
-                        h.Username("guest");
-                        h.Password("guest");
+                        c.Username("guest");
+                        c.Password("guest");
                     });
-                }));
+                });
             });
-            services.AddMassTransitHostedService();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

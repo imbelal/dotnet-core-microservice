@@ -10,7 +10,7 @@ namespace Product.Microservice.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private IMediator _mediator;
 

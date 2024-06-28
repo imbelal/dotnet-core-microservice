@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Order.Application.Features.Commands;
 using Order.Application.Features.Queries;
-using Order.Application.VMs;
 using Shared.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,14 +14,14 @@ namespace Order.Microservice.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrdersController : ControllerBase
     {
         private IMediator _mediator;
 
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
         private readonly IBus _bus;
-        public OrderController(IBus bus)
+        public OrdersController(IBus bus)
         {
             _bus = bus;
         }

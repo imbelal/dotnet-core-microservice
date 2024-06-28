@@ -1,5 +1,4 @@
 using Application;
-using GreenPipes;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,26 +24,28 @@ namespace Product.Microservice.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMassTransit(x =>
+            services
+            .AddMassTransit(mt =>
             {
-                x.AddConsumer<OrderConsumer>();
-                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                mt.AddConsumer<OrderConsumer>();
+                mt.UsingRabbitMq((ctx, cfg) =>
                 {
-                    cfg.UseHealthCheck(provider);
-                    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+                    cfg.Host(new Uri("rabbitmq://localhost"), "/", c =>
                     {
-                        h.Username("guest");
-                        h.Password("guest");
+                        c.Username("guest");
+                        c.Password("guest");
                     });
+                    cfg.ConfigureEndpoints(ctx);
                     cfg.ReceiveEndpoint("orderQueue", ep =>
                     {
                         ep.PrefetchCount = 16;
                         ep.UseMessageRetry(r => r.Interval(2, 100));
-                        ep.ConfigureConsumer<OrderConsumer>(provider);
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<OrderConsumer>(ctx);
                     });
-                }));
+                });
             });
-            services.AddMassTransitHostedService();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
